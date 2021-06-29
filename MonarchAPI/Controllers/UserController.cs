@@ -43,6 +43,7 @@ namespace MonarchAPI.Controllers
                 var bytes = Encoding.UTF8.GetBytes(user.Password);
                 var md5 = MD5.Create();
                 user.Password = BitConverter.ToString(md5.ComputeHash(bytes)).Replace("-", String.Empty);
+                user.UserName = user.UserName.ToLower();
                 
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
@@ -52,6 +53,33 @@ namespace MonarchAPI.Controllers
 
             //If the username does exist, return false to trigger front end validation.
             return Json(false);
+        }
+
+        [HttpPost]
+        [Route("log")]
+        public async Task<IActionResult> LogIn([FromBody] LogInViewModel cred) {
+
+            //Grabs the user from the database
+            var user = await _context.Users
+                .Where(u => u.UserName == cred.UserName.ToLower())
+                .SingleOrDefaultAsync();
+
+            //Checks to ensure the user actually exists.  Returns false if not.
+            if (user == null) {
+                return Json(false);
+            }
+
+            //Encodes the password
+            var bytes = Encoding.UTF8.GetBytes(cred.Password);
+            var md5 = MD5.Create();
+
+            //Tests the two hashed passwords for equality.  Returns false if not.
+            if (user.Password != BitConverter.ToString(md5.ComputeHash(bytes)).Replace("-", String.Empty)) {
+                return Json(false);
+            }
+
+            //If all is successful, returns the user as json object.
+            return Json(user);
         }
     }
 }
