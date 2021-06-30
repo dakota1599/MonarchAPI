@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MonarchAPI.Data;
 
 namespace MonarchAPI.Migrations
 {
     [DbContext(typeof(MonarchContext))]
-    partial class MonarchContextModelSnapshot : ModelSnapshot
+    [Migration("20210630140257_AddMeetingName")]
+    partial class AddMeetingName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,9 +66,6 @@ namespace MonarchAPI.Migrations
                     b.Property<string>("Owner")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OwnerID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UserID")
                         .HasColumnType("int");
 
@@ -84,28 +83,17 @@ namespace MonarchAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AccountOwner")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("AccountOwnerID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserID")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("UserID");
 
                     b.ToTable("Member");
                 });
@@ -154,13 +142,6 @@ namespace MonarchAPI.Migrations
 
             modelBuilder.Entity("MonarchAPI.Models.Member", b =>
                 {
-                    b.HasOne("MonarchAPI.Models.User", null)
-                        .WithMany("Members")
-                        .HasForeignKey("UserID");
-                });
-
-            modelBuilder.Entity("MonarchAPI.Models.Member", b =>
-                {
                     b.Navigation("CheckIns");
                 });
 
@@ -169,8 +150,6 @@ namespace MonarchAPI.Migrations
                     b.Navigation("CheckIns");
 
                     b.Navigation("Meetings");
-
-                    b.Navigation("Members");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MonarchAPI.Data;
 
 namespace MonarchAPI.Migrations
 {
     [DbContext(typeof(MonarchContext))]
-    partial class MonarchContextModelSnapshot : ModelSnapshot
+    [Migration("20210630143842_AddUserMemberList")]
+    partial class AddUserMemberList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,9 +65,6 @@ namespace MonarchAPI.Migrations
 
                     b.Property<string>("Owner")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OwnerID")
-                        .HasColumnType("int");
 
                     b.Property<int?>("UserID")
                         .HasColumnType("int");
@@ -155,7 +154,7 @@ namespace MonarchAPI.Migrations
             modelBuilder.Entity("MonarchAPI.Models.Member", b =>
                 {
                     b.HasOne("MonarchAPI.Models.User", null)
-                        .WithMany("Members")
+                        .WithMany("members")
                         .HasForeignKey("UserID");
                 });
 
@@ -170,7 +169,7 @@ namespace MonarchAPI.Migrations
 
                     b.Navigation("Meetings");
 
-                    b.Navigation("Members");
+                    b.Navigation("members");
                 });
 #pragma warning restore 612, 618
         }

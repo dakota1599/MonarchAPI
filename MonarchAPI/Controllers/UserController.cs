@@ -77,6 +77,12 @@ namespace MonarchAPI.Controllers
             if (user.Password != BitConverter.ToString(md5.ComputeHash(bytes)).Replace("-", String.Empty)) {
                 return Json(false);
             }
+            //Returns a list of all members owned by the user.
+            user.Members = await _context.Members.Where(m => m.AccountOwnerID == user.ID).ToListAsync();
+            //Returns a list of all meetings owned by the user.
+            user.Meetings = await _context.Meetings.Where(m => m.OwnerID == user.ID).ToListAsync();
+
+            user.Password = null;
 
             //If all is successful, returns the user as json object.
             return Json(user);

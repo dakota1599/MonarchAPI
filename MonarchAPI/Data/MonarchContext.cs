@@ -13,10 +13,16 @@ namespace MonarchAPI.Data
 
         //Making sure to set up the Users table
         public DbSet<User> Users { get; set; }
+        public DbSet<Member> Members { get; set; }
+        public DbSet<Meeting> Meetings { get; set; }
+        public DbSet<CheckIn> CheckIns { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
 
             modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<Member>().ToTable("Member");
+            modelBuilder.Entity<Meeting>().ToTable("Meeting");
+            modelBuilder.Entity<CheckIn>().ToTable("CheckIn");
         }
     }
 }
