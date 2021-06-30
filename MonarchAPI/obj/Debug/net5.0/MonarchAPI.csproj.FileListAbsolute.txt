@@ -60,3 +60,8 @@ C:\Users\dshapiro\Documents\Repositories\MonarchAPI\MonarchAPI\obj\Debug\net5.0\
 C:\Users\dshapiro\Documents\Repositories\MonarchAPI\MonarchAPI\obj\Debug\net5.0\MonarchAPI.pdb
 C:\Users\dshapiro\Documents\Repositories\MonarchAPI\MonarchAPI\obj\Debug\net5.0\MonarchAPI.genruntimeconfig.cache
 C:\Users\dshapiro\Documents\Repositories\MonarchAPI\MonarchAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+C:\Users\dshapiro\Documents\Repositories\MonarchAPI\MonarchAPI\bin\Debug\net5.0\System.Web.Cors.dll
+C:\Users\dshapiro\Documents\Repositories\MonarchAPI\MonarchAPI\bin\Debug\net5.0\System.Net.Http.Formatting.dll
+C:\Users\dshapiro\Documents\Repositories\MonarchAPI\MonarchAPI\bin\Debug\net5.0\System.Web.Http.dll
+C:\Users\dshapiro\Documents\Repositories\MonarchAPI\MonarchAPI\bin\Debug\net5.0\System.Web.Http.Cors.dll
+C:\Users\dshapiro\Documents\Repositories\MonarchAPI\MonarchAPI\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll

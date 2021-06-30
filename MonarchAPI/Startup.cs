@@ -30,24 +30,24 @@ namespace MonarchAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //This does all database connecting and stuff on startup.
-            services.AddDbContext<MonarchContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddCors(options =>
             {
                 options.AddPolicy(name: AllowAnyOrigin,
                     builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials());
+                    .AllowAnyHeader());
             });
+            //This does all database connecting and stuff on startup.
+            services.AddDbContext<MonarchContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MonarchAPI", Version = "v1" });
             });
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +59,8 @@ namespace MonarchAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MonarchAPI v1"));
             }
+
+            app.UseCors(AllowAnyOrigin);
 
             app.UseHttpsRedirection();
 
