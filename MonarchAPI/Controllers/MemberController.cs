@@ -89,6 +89,20 @@ namespace MonarchAPI.Controllers
         
         }
 
+        [HttpGet]
+        [Route("list/{id:int}")]
+        public async Task<IActionResult> GetUserList(int id) { 
+        
+            var members = await _context.Members.Where(m => m.AccountOwnerID == id).ToListAsync();
+
+            foreach(Member member in members) {
+                member.CheckIns = await _context.CheckIns.Where(c => c.MemberID == member.ID).ToListAsync();
+            }
+
+            return Json(members);
+
+        }
+
         [HttpPost]
         [Route("log")]
         public async Task<IActionResult> LogIn([FromBody] LogInViewModel cred) {
