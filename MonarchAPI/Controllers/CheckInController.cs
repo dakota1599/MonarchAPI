@@ -69,5 +69,15 @@ namespace MonarchAPI.Controllers
             return Json(true);
         
         }
+
+        [HttpGet]
+        [Route("meeting/{id:int}")]
+        public async Task<IActionResult> GetCheckInList(int id) {
+
+            var check = await _context.CheckIns.Where(c => c.MeetingID == id).ToListAsync();
+
+            return Json(check);
+
+        }
     }
 }

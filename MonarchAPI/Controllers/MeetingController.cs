@@ -75,5 +75,15 @@ namespace MonarchAPI.Controllers
             return Json(true);
 
         }
+
+        [HttpGet]
+        [Route("org/{id:int}")]
+        public async Task<IActionResult> GetOrganizationMeetings(int id) {
+
+            var meetings = await _context.Meetings.Where(m => m.OrgID == id).ToListAsync();
+
+            return Json(meetings);
+        
+        }
     }
 }

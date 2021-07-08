@@ -13,8 +13,10 @@ namespace MonarchAPI.Models
         [MaxLength(100)]
         public string UserName { get; set; }
         public string Password { get; set; }
-        public int AccountOwnerID { get; set; }
-        public string AccountOwner { get; set; }
+        public int OrgID { get; set; }
+        public string Org { get; set; }
+        public Boolean Admin { get; set; }
+        public List<Meeting> Meetings { get; set; }
         public List<CheckIn> CheckIns { get; set; }
     }
 }

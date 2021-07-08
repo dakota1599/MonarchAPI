@@ -60,7 +60,7 @@ namespace MonarchAPI.Controllers
 
         }
 
-        //Gets the Members
+        //Gets a Member
         [HttpGet]
         [Route("{id:int}")]
         public async Task<IActionResult> GetMember(int id) {
@@ -91,9 +91,9 @@ namespace MonarchAPI.Controllers
 
         [HttpGet]
         [Route("list/{id:int}")]
-        public async Task<IActionResult> GetUserList(int id) { 
+        public async Task<IActionResult> GetMemberList(int id) { 
         
-            var members = await _context.Members.Where(m => m.AccountOwnerID == id).ToListAsync();
+            var members = await _context.Members.Where(m => m.OrgID == id).ToListAsync();
 
             foreach(Member member in members) {
                 member.CheckIns = await _context.CheckIns.Where(c => c.MemberID == member.ID).ToListAsync();

@@ -12,6 +12,7 @@ namespace MonarchAPI.Models
         public string MeetingName { get; set; }
         public int MeetingID { get; set; }
         public int MemberID { get; set; }
+        public string MemberName { get; set; }
         public Boolean CheckedIn { get; set; }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MonarchAPI.Data;
 
 namespace MonarchAPI.Migrations
 {
     [DbContext(typeof(MonarchContext))]
-    partial class MonarchContextModelSnapshot : ModelSnapshot
+    [Migration("20210708190718_AddOrgID")]
+    partial class AddOrgID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,9 +39,6 @@ namespace MonarchAPI.Migrations
 
                     b.Property<int>("MemberID")
                         .HasColumnType("int");
-
-                    b.Property<string>("MemberName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 

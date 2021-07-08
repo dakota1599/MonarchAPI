@@ -5,14 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MonarchAPI.Models
 {
-    public class Meeting
+    public class Organization
     {
         [Key]
         public int ID { get; set; }
-        [MaxLength(50)]
         public string Name { get; set; }
-        public int OwnerID { get; set; }
-        public string Owner { get; set; }
-        public int OrgID { get; set; }
     }
 }
