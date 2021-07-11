@@ -14,5 +14,6 @@ namespace MonarchAPI.Models
         public int OwnerID { get; set; }
         public string Owner { get; set; }
         public int OrgID { get; set; }
+        public List<CheckIn> CheckIns {get;set; }
     }
 }

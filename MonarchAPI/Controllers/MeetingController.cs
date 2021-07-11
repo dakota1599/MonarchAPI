@@ -25,6 +25,30 @@ namespace MonarchAPI.Controllers
 
         }
 
+        //Gets a meeting by its id.
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<IActionResult> GetMeeting(int id) {
+
+            //Grabs the meeting from the table.
+            var meeting = await _context.Meetings.Where(m => m.ID == id).SingleOrDefaultAsync();
+
+            //If meeting is not null...
+            if (meeting != null) {
+                //...get the checkins associated with the meeting.
+                var checkins = await _context.CheckIns.Where(c => c.MeetingID == id).ToListAsync();
+
+                //Set the meetings checkins to the checkin list.
+                meeting.CheckIns = checkins;
+
+                //Return a json of the meeting.
+                return Json(meeting);
+            }
+            //Return false if meeting is null.
+            return Json(false);
+
+        }
+
         //Creates a new meeting
         [HttpPost]
         [Route("")]
@@ -40,6 +64,35 @@ namespace MonarchAPI.Controllers
             await _context.SaveChangesAsync();
             //Return true.
             return Json(true);
+        
+        }
+
+        //Edits a record in the table.
+        [HttpPut]
+        [Route("")]
+        public async Task<IActionResult> EditMeeting([FromBody] Meeting meeting) {
+
+            //If the incoming meeting is not null...
+            if (meeting != null)
+            {
+                //...grab the meeting from the table that it is associated with.
+                var meetingToChange = await _context.Meetings.Where(m => m.ID == meeting.ID).SingleOrDefaultAsync();
+                //If that meeting is not null...
+                if (meetingToChange != null)
+                {
+                    //...set its name to the name of the incoming meeting.
+                    meetingToChange.Name = meeting.Name;
+                    //Await the saved changes
+                    await _context.SaveChangesAsync();
+                    //Return true.
+                    return Json(true);
+                }
+                //Return false if the database does not contain that meeting.
+                return Json(false);
+            }
+            //Return false if the incoming meeting is empty.
+            return Json(false);
+
         
         }
 
@@ -66,7 +119,10 @@ namespace MonarchAPI.Controllers
                 .ToListAsync();
 
             //Remove all those checkins
-            _context.CheckIns.RemoveRange(checkins);
+            if (checkins.Count() != 0)
+            {
+                _context.CheckIns.RemoveRange(checkins);
+            }
 
             //Save changes
             await _context.SaveChangesAsync();

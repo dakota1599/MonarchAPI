@@ -70,6 +70,29 @@ namespace MonarchAPI.Controllers
         
         }
 
+        //Alters the status of a checkin
+        [HttpPut]
+        [Route("{id:int}")]
+        public async Task<IActionResult> AlterStatus(int id) {
+
+            //Gets the checkin associated with the incoming id.
+            var check = await _context.CheckIns.Where(c => c.ID == id).SingleOrDefaultAsync();
+
+            //If checkin is null, return false.
+            if (check == null) {
+                return Json(false);
+            }
+
+            //Flip the checkedin boolean.
+            check.CheckedIn = !check.CheckedIn;
+
+            //Save changes.
+            await _context.SaveChangesAsync();
+
+            //Return true.
+            return Json(true);
+        }
+
         [HttpGet]
         [Route("meeting/{id:int}")]
         public async Task<IActionResult> GetCheckInList(int id) {
