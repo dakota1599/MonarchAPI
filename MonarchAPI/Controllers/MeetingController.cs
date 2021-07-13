@@ -36,7 +36,7 @@ namespace MonarchAPI.Controllers
             //If meeting is not null...
             if (meeting != null) {
                 //...get the checkins associated with the meeting.
-                var checkins = await _context.CheckIns.Where(c => c.MeetingID == id).ToListAsync();
+                var checkins = await _context.CheckIns.Where(c => c.MeetingID == id).OrderBy(c => c.MemberName).ToListAsync();
 
                 //Set the meetings checkins to the checkin list.
                 meeting.CheckIns = checkins;
@@ -136,7 +136,7 @@ namespace MonarchAPI.Controllers
         [Route("org/{id:int}")]
         public async Task<IActionResult> GetOrganizationMeetings(int id) {
 
-            var meetings = await _context.Meetings.Where(m => m.OrgID == id).ToListAsync();
+            var meetings = await _context.Meetings.Where(m => m.OrgID == id).OrderBy(m => m.Name).ToListAsync();
 
             return Json(meetings);
         

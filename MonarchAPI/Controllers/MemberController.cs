@@ -93,7 +93,7 @@ namespace MonarchAPI.Controllers
         [Route("list/{id:int}")]
         public async Task<IActionResult> GetMemberList(int id) { 
         
-            var members = await _context.Members.Where(m => m.OrgID == id).ToListAsync();
+            var members = await _context.Members.Where(m => m.OrgID == id).OrderBy(m => m.Name).ToListAsync();
 
             foreach(Member member in members) {
                 member.CheckIns = await _context.CheckIns.Where(c => c.MemberID == member.ID).ToListAsync();
