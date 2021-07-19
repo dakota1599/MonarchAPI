@@ -89,16 +89,20 @@ namespace MonarchAPI.Controllers
         
         }
 
+        //Get member by org ID.
         [HttpGet]
         [Route("list/{id:int}")]
         public async Task<IActionResult> GetMemberList(int id) { 
         
+            //Await members from database context, members table.
             var members = await _context.Members.Where(m => m.OrgID == id).OrderBy(m => m.Name).ToListAsync();
 
+            //Grab the checkins for each member.
             foreach(Member member in members) {
                 member.CheckIns = await _context.CheckIns.Where(c => c.MemberID == member.ID).ToListAsync();
             }
 
+            //Return the json of the members array.
             return Json(members);
 
         }
